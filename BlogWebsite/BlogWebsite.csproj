@@ -6,4 +6,33 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\HTML\**" />
+    <Compile Remove="wwwroot\lib\jquery-3.7.1\**" />
+    <Content Remove="wwwroot\HTML\**" />
+    <Content Remove="wwwroot\lib\jquery-3.7.1\**" />
+    <EmbeddedResource Remove="wwwroot\HTML\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-3.7.1\**" />
+    <None Remove="wwwroot\HTML\**" />
+    <None Remove="wwwroot\lib\jquery-3.7.1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Interface\" />
+    <Folder Include="Models\Service\" />
+    <Folder Include="Models\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>
