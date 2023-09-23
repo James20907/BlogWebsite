@@ -1,16 +1,20 @@
 ﻿using BlogWebsite.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
+using System.Text;
 
 namespace BlogWebsite.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHostEnvironment _environment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHostEnvironment environment)
         {
             _logger = logger;
+            _environment = environment;
         }
 
         public IActionResult Index()

@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Assorted Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Assorted Index</h1>
+</div>
+
+@section Scripts{
+    <script>
+        var msg = @TempData["msg"];
+
+        if (msg != null) {
+            if (msg != '') {
+                alert(msg);
+            }
+        }
+    </script>
+}
