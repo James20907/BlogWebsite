@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Drag & Drop";
+}
+
+<style>
+    .container.hover {
+        background: powderblue;
+        align-self: center;
+    }
+
+    .box {
+        cursor: grab;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .box.dragging {
+        background: white;
+        cursor: grabbing;
+    }
+
+    .sortbox {
+        cursor: grab;
+       /* width: 50px;
+        height: 50px;*/
+    }
+    
+    #sortable {
+            width:600px;
+        }
+
+    .ui-state-highlight {
+        margin: 0 5px 5px 5px;
+        padding: 5px;
+        font-size: 1.2em;
+        height: 1.5em;
+        line-height: 1.2em;
+        height: 1.5em;
+        line-height: 1.2em;
+    }
+</style>
+
+
+
+<div class="text-center">
+    <h1 class="display-4">-- Drag & Drop --</h1>
+    <br />
+    <div class="row">
+        <div class="container containerbox row" style="width:500px; height:300px; background-color:powderblue">
+            <div id="box_1" class="box" draggable="true" style="background-color:red"></div>
+            <div id="box_2" class="box" draggable="true" style="background-color:yellow"></div>
+            <div id="box_3" class="box" draggable="true" style="background-color:green"></div>
+            <div id="box_4" class="box" draggable="true" style="background-color:blue"></div>
+            <div id="box_5" class="box" draggable="true" style="background-color:purple"></div>
+            <div id="box_6" class="box" draggable="true" style="background-color:fuchsia"></div>
+        </div>
+        <div class="container containerbox row" style="width:500px; height:300px ;background-color:darkslategray">
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4">-- Sortable--</h1>
+    <br />
+    <ul id="sortable">
+        <li class="ui-state-default">Item 1</li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+        <li class="ui-state-default">Item 4</li>
+        <li class="ui-state-default">Item 5</li>
+        <li class="ui-state-default">Item 6</li>
+        <li class="ui-state-default">Item 7</li>
+    </ul>
+</div>
+
+@section Scripts{
+    @*<script src="~/js/sortable_1.15.0.js"></script>*@
+    @*<script src="~/js/sortable/jquery-3.6.0.js"></script>*@
+    <script src="~/js/sortable/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        let draggables = document.querySelectorAll('.box');
+        draggables.forEach((draggable) => {
+
+            draggable.addEventListener('dragstart', (ev) => {
+                ev.dataTransfer.setData('text/plain', ev.target.id);
+                ev.target.style.opacity = ".5";
+            });
+
+            draggable.addEventListener("dragend", (ev) => {
+                ev.target.style.opacity = "";
+            });
+        });
+
+        let dropzones = document.querySelectorAll('.containerbox');
+        dropzones.forEach((dropzone) => {
+
+            dropzone.addEventListener('dragenter', (ev) => {
+                ev.preventDefault();
+                dropzone.style.borderStyle = 'dashed';
+                return false;
+            });
+
+            dropzone.addEventListener('dragover', (ev) => {
+                ev.preventDefault();
+                return false;
+            });
+
+            dropzone.addEventListener('dragleave', (ev) => {
+                dropzone.style.borderStyle = 'solid';
+            });
+
+            dropzone.addEventListener('drop', (ev) => {
+                ev.preventDefault()
+                ev.target.style.borderStyle = 'solid';
+                const sourceId = ev.dataTransfer.getData('text/plain')
+                ev.target.appendChild(document.getElementById(sourceId))
+            })
+
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $("#sortable").sortable({
+                placeholder: "ui-state-highlight"
+            });
+            $("#sortable").disableSelection();
+        });
+    </script>
+}
